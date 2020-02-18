@@ -22,4 +22,7 @@ def register(request):
         context= {'user_form': user_form}
         return render(request, 'html/register.html', context)
 
-
+def post(request,num):
+    myPost = posts.objects.get(id = num)
+    context = {'post':myPost}
+    return render(request,'html/details')

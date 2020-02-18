@@ -5,5 +5,6 @@ from blog import views
 urlpatterns =[
 	path('register',views.register),
 	path('home', views.home),
+	path('post/<num>',views.post),
 
 ]
