@@ -1,6 +1,8 @@
 #to create models forms
 from blog.models import User
 from django import forms
+from .models import Comment
+
 
 class UserForm(forms.ModelForm):
     #to customize how the form look on the web page
@@ -33,3 +35,7 @@ class UserForm(forms.ModelForm):
         return cleanData['firstName']
 
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')
