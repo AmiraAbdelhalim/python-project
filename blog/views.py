@@ -6,6 +6,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
 from blog.forms import UserForm
 from django.views.generic import CreateView
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.urls import reverse_lazy, reverse
+from django.contrib.auth import login, logout
+from django.http import HttpResponse, HttpResponseRedirect
+from . import forms
+from blog.forms import UserForm
+from django.views.generic import CreateView
 
 
 # Create your views here.
@@ -32,21 +40,5 @@ class SignUp(CreateView):
             return render(request, 'html/signup.html', {'form': form})
 
 
-def home(request):
-    return render(request, 'html/index.html')
 
-# def login(request):
-#     return render (request,'html/login.html')
-
-
-# def register(request):
-#     if request.method == "POST":
-#         user_form = UserForm(request.POST)
-#         if user_form.is_valid():
-#             user_form.save()
-#             return HttpResponseRedirect("/blog/home")
-#     else:
-#         user_form= UserForm()
-#         context= {'user_form': user_form}
-#         return render(request, 'html/register.html', context)
 
