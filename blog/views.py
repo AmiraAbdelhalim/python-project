@@ -1,27 +1,29 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse_lazy, reverse
-# from django.contrib.auth import login, logout
-from blog.models import User
+from blog.models import Users
 from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
 from blog.forms import UserForm
 from django.views.generic import CreateView
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth import login, logout
-from django.http import HttpResponse, HttpResponseRedirect
-from . import forms
-from blog.forms import UserForm
-from django.views.generic import CreateView
+from django.views import generic
+from .models import Post
+from .forms import CommentForm
+
+
+
+
+
+
+
+
 
 
 # Create your views here.
 class SignUp(CreateView):
     form_class = forms.UserForm
     # success_url = reverse_lazy('login') #reverse_lazy to redirect the user to the login page upon successful registration.
-    template_name = 'html/signup.html'
+    template_name = 'signup.html'
     # return httpResponseRedirect(success_url)
 
     def signup(request):
@@ -35,14 +37,11 @@ class SignUp(CreateView):
                 raw_password = form.cleaned_data.get('password1')
                 user = authenticate(username=user.username, password=raw_password)
                 login(request, user)
-                return HttpResponseRedirect("login")
+                return redirect("login")
         else:
             form = UserForm()
-            return render(request, 'html/signup.html', {'form': form})
-from django.views import generic
-from .models import Post
-from .forms import CommentForm
-from django.shortcuts import render, get_object_or_404
+            return render(request, 'signup.html', {'form': form})
+
 
 
 
@@ -82,22 +81,5 @@ def post_detail(request, slug):
                                            'comments': comments,
                                            'new_comment': new_comment,
                                            'comment_form': comment_form})
-
-
-
-# def home(request):
-#     return render(request, 'index.html')
-
-
-# def register(request):
-#     if request.method == "POST":
-#         user_form = UserForm(request.POST)
-#         if user_form.is_valid():
-#             user_form.save()
-#             return HttpResponseRedirect("/blog/home")
-#     else:
-#         user_form= UserForm()
-#         context= {'user_form': user_form}
-#         return render(request, 'register.html', context)
 
 

@@ -1,5 +1,5 @@
 #to create models forms
-from blog.models import User
+from blog.models import Users
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
