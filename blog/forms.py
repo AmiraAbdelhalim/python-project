@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Comment
 
 
-
 class UserForm(UserCreationForm):
 
     class Meta:
@@ -21,9 +20,6 @@ class UserForm(UserCreationForm):
         self.fields['email'].label='Email'
         self.fields['password1'].label='Password'
         self.fields['password2'].label = 'Re-Enter Password'
-
-
-
 
 
 class CommentForm(forms.ModelForm):
