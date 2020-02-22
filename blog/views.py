@@ -46,21 +46,21 @@ class SignUp(CreateView):
     template_name = 'signup.html'
 
 
-    def signup(request):
-        if request.method == 'POST':
-            print("sigup")
-            form = UserForm(request.POST)
-            if form.is_valid():
-                # user = form.save()
-                form.save()
-                user= form.cleaned_data.get('username')
-                raw_password = form.cleaned_data.get('password1')
-                user = authenticate(username=user, password=raw_password)
-                login(request, user)
-                return HttpResponseRedirect("login")
-        else:
-            form = UserForm()
-            return render(request, 'signup.html', {'form': form})
+    # def signup(request):
+    #     if request.method == 'POST':
+    #         print("sigup")
+    #         form = UserForm(request.POST)
+    #         if form.is_valid():
+    #             # user = form.save()
+    #             form.save()
+    #             user= form.cleaned_data.get('username')
+    #             raw_password = form.cleaned_data.get('password1')
+    #             user = authenticate(username=user, password=raw_password)
+    #             login(request, user)
+    #             return HttpResponseRedirect("login")
+    #     else:
+    #         form = UserForm()
+    #         return render(request, 'signup.html', {'form': form})
 
 def home(request):
     return render(request, 'index.html')
