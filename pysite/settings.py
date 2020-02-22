@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'blog',
+    'myAdmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'pysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'blog/template'),os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR,'blog/template'),os.path.join(BASE_DIR,'myAdmin/templates')],
         
         # [TEMPLATE_DIRS],
         'APP_DIRS': True,
