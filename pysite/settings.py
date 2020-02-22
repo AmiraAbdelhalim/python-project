@@ -120,3 +120,5 @@ USE_TZ = True
 
 STATIC_URL = os.path.join(BASE_DIR,'blog/static/')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+LOGIN_REDIRECT_URL = "/blog" #redirect after login
+LOGOUT_REDIRECT_URL = "/blog/login" #redirect after logout
