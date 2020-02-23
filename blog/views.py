@@ -95,7 +95,7 @@ def post_detail(request, slug):
             new_comment.post = post
             # Save the comment to the database
             new_comment.save()
-            return HttpResponseRedirect(url)
+            # return HttpResponseRedirect(url)
     else:
         comment_form = CommentForm()
         reply_form = ReplyForm()
@@ -108,4 +108,27 @@ def post_detail(request, slug):
                                            'reply_form':ReplyForm,
                                            'replies': replies})
 
+
+def comment_reply(request,commentId,slug):
+    comment = get_object_or_404(Comment,id=commentId)
+    print(comment)
+    url = '/blog/'+slug
+
+    if request.method =='POST':
+        print(request.GET)
+        reply_form = ReplyForm(data=request.POST)
+        print(reply_form)
+        if reply_form.is_valid():
+
+            reply = reply_form.save(commit=False)
+
+            reply.comment = comment
+            reply.name = request.user
+
+            reply.save()
+
+    else:
+        reply_form = ReplyForm()
+
+    return HttpResponseRedirect(url)
 

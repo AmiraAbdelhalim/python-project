@@ -29,13 +29,17 @@
             </span>
           </p>
           {{ comment.body | linebreaks }}
-          <button type="submit" class="btn btn-primary  btn-lg" id="replybtn{{comment.id}} ">Repaly</button>
-          
-        </div>
-        <div style="display:none" id="replyForm{{comment.id}}">
+          {% if user.is_authenticated %}
+          <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}} ">Reply</button>
+          {% endif %}
+          <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="replyForm{{comment.id}}">
             {{ reply_form.as_p }}
-        {% csrf_token %}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary  btn-lg" name="replySubmit">Submit</button> 
+          </form>
+
         </div>
+        
         
         {% for reply in replies %}
         {% if reply.comment_id == comment.id %}
@@ -75,18 +79,27 @@
     
   </div>
 </div>
-{% endblock content %}
+
 
 
 <script> 
 
-  const reply =document.querySelectorAll("[id ^= 'replytn']") 
-  reply.forEach(element=> {
-    element.addEventListener('click', function(e) {
-      // const form = document.querySelector(`[id $= '${comment.id}]`);
-      console.log(e)
-      reply.style.display = 'block'
-    })
-  })
+  const replyBtns =document.querySelectorAll('[id ^= "reply"]'); 
+  replyBtns.forEach(btn=> {
+    btn.addEventListener('click',(e)=>{
+      const replyForm = document.querySelector('[id = "form-${btn.getAttribute('id')}"]');
+      replyForm.style.display = 'block';
+
+    });
+  });
+
+  //   element.addEventListener('click', function(e) {
+  //     // const form = document.querySelector(`[id $= '${comment.id}]`);
+  //     console.log(e)
+  //     reply.style.display = 'block'
+  //   })
+  // })
 
  </script>
+
+{% endblock content %}
