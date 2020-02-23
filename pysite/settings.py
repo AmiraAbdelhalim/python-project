@@ -80,13 +80,9 @@ WSGI_APPLICATION = 'pysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-<<<<<<< HEAD
-    'default': dict(ENGINE='django.db.backends.mysql', NAME='blogpy', USER='root', PASSWORD='root')
-=======
+
 
     'default': dict(ENGINE='django.db.backends.mysql', NAME='pythonPro', USER='fatma', PASSWORD='2552005')
-
->>>>>>> ea6c79fe18b6c7a917c9454d70e793b97ef4f7f4
 }
 
 
