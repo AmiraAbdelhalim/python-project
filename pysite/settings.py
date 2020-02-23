@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'pysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dict(ENGINE='django.db.backends.mysql', NAME='blog', USER='root', PASSWORD='lolomam')
+    'default': dict(ENGINE='django.db.backends.mysql', NAME='blogpy', USER='root', PASSWORD='root')
 }
 
 
@@ -112,6 +112,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+STATICFILES_DIRS = [
+    "/home/habila/Downloads/python-project/python-project/blog/static/css",
+
+]
 
 
 # Static files (CSS, JavaScript, Images)

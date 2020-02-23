@@ -109,3 +109,10 @@ def post_detail(request, slug):
                                            'replies': replies})
 
 
+
+
+
+def PostList(request):
+    all_posts = Post.objects.all()
+    context = {'post' : all_posts}
+    return render(request ,'home.html' , context)
