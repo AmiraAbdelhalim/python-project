@@ -11,4 +11,7 @@ app_name='myAdmin'
 urlpatterns =[
 	
 	url(r'^$',views.index),
+	path('users', views.users),
+	path('posts', views.posts),
+
 ]

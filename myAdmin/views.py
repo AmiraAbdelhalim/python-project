@@ -5,3 +5,11 @@ from django.http import HttpResponse
 
 def index(request):
 	return render(request,'admin.html')
+
+
+def posts(request):
+	return render(request,'posts.html')
+
+
+def users(request):
+	return render(request,'users.html')
