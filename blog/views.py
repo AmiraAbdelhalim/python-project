@@ -26,68 +26,7 @@ class SignUp(CreateView):
 def home(request):
     return render(request, 'index.html')
 
-# class SignUp(CreateView):
-#     form_class = forms.UserForm
-#     success_url = reverse_lazy('login')
-#     # #reverse_lazy to redirect the user to the login page upon successful registration.
-#     template_name = 'signup.html'
-#
-#
-#     def signup(request):
-#         # if request.user.is_authenticated():
-#         #     return redirect('login')
-#         if request.method == 'POST':
-#             print("sigup")
-#             form = UserForm(request.POST)
-#             if form.is_valid():
-#                 user = form.save()
-#                 user.save()
-#                 #user= form.cleaned_data.get('username')
-#                 raw_password = form.cleaned_data.get('password1')
-#                 user = authenticate(username=user.username, password=raw_password)
-#                 login(request, user)
-#                 return HttpResponseRedirect("login")
-#         else:
-#             form = UserForm()
-#             return render(request, 'signup.html', {'form': form})
 
-
-# def signin(request):
-#     if request.user.is_authenticated:
-#         return render(request, 'index.html')
-#     if request.method == 'POST':
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('signup')
-#         else:
-#             form = AuthenticationForm(request.POST)
-#             return render(request, 'login.html', {'form': form})
-#     else:
-#         form = AuthenticationForm()
-#         return render(request, 'login.html', {'form': form})
-
-# def home(request):
-#     return render(request, 'index.html')
-
-
-# def signup(request):
-#     if request.method == 'POST':
-#         print("sigup")
-#         form = UserForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             user= form.cleaned_data.get('username')
-#             raw_password = form.cleaned_data.get('password1')
-#             user = authenticate(username=user, password=raw_password)
-#             login(request, user)
-#             return HttpResponseRedirect("login")
-#     else:
-#         print("method is get")
-#         form = UserForm()
-#         return render(request, 'signup.html', {'form': form})
 
 class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')

@@ -11,6 +11,10 @@ class UserForm(UserCreationForm):
     class Meta:
         fields=('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
         model = get_user_model()
+        help_texts = {
+            'username': None,
+            'email': None,
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
