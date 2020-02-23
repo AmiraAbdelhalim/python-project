@@ -32,13 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
+    'myAdmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    
 ]
 
 MIDDLEWARE = [
@@ -56,7 +58,8 @@ ROOT_URLCONF = 'pysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'blog/template/html')],
+        'DIRS': [os.path.join(BASE_DIR,'blog/template'),os.path.join(BASE_DIR,'myAdmin/templates')],
+        
         # [TEMPLATE_DIRS],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,7 +80,13 @@ WSGI_APPLICATION = 'pysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
+<<<<<<< HEAD
     'default': dict(ENGINE='django.db.backends.mysql', NAME='blogpy', USER='root', PASSWORD='root')
+=======
+
+    'default': dict(ENGINE='django.db.backends.mysql', NAME='pythonPro', USER='fatma', PASSWORD='2552005')
+
+>>>>>>> ea6c79fe18b6c7a917c9454d70e793b97ef4f7f4
 }
 
 
@@ -122,7 +131,10 @@ STATICFILES_DIRS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR,'blog/static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+)
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = "/blog" #redirect after login
