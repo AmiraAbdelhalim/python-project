@@ -19,30 +19,7 @@ from .forms import CommentForm , ReplyForm
 
 
 
-# Create your views here.
-# class SignUp(CreateView):
-#     form_class = forms.UserForm
-#     success_url = reverse_lazy('login') #reverse_lazy to redirect the user to the login page upon successful registration.
-#     template_name = 'signup.html'
-#     # return httpResponseRedirect(success_url)
 
-#     def signup(request):
-#         if request.method == 'POST':
-#             form = UserForm(request.POST)
-#             if form.is_valid():
-                
-#                 form.save()
-#                 user = form.cleaned_data.get('username')
-#                 raw_password = form.cleaned_data.get('password1')
-#                 user = authenticate(username=user, password=raw_password)
-#                 login(request, user)
-#                 return HttpResponseRedirect("login")
-#         else:
-#             form = UserForm()
-#             return render(request, 'signup.html', {'form': form})
-
-# def home(request):
-#     return render(request, 'index.html')
 
 
 class SignUp(CreateView):
@@ -54,21 +31,6 @@ class SignUp(CreateView):
 def home(request):
     return render(request, 'index.html')
 
-    # def signup(request):
-    #     if request.method == 'POST':
-    #         print("sigup")
-    #         form = UserForm(request.POST)
-    #         if form.is_valid():
-    #             # user = form.save()
-    #             form.save()
-    #             user= form.cleaned_data.get('username')
-    #             raw_password = form.cleaned_data.get('password1')
-    #             user = authenticate(username=user, password=raw_password)
-    #             login(request, user)
-    #             return HttpResponseRedirect("login")
-    #     else:
-    #         form = UserForm()
-    #         return render(request, 'signup.html', {'form': form})
 
 
 
@@ -76,9 +38,7 @@ class PostList(generic.ListView):
     queryset = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
 
-# class PostDetail(generic.DetailView):
-#     model = Post
-#     template_name = 'post_detail.html'
+
 
 
 def post_detail(request, slug):
@@ -119,4 +79,4 @@ def post_detail(request, slug):
 def PostList(request):
     all_posts = Post.objects.all()
     context = {'post' : all_posts}
-    return render(request ,'html/home.html' , context)
+    return render(request ,'home.html' , context)

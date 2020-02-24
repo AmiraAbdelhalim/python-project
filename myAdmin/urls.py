@@ -13,5 +13,9 @@ urlpatterns =[
 	url(r'^$',views.index),
 	path('users', views.users),
 	path('posts', views.posts),
+	path('editUser/<id>',views.editUser),
+	path('deleteUser/<id>',views.deleteUser),
+	path('addUser', views.addUser),
+	path('viewUser/<id>', views.viewUser),
 
 ]
