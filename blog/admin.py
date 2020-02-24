@@ -1,17 +1,13 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment , Reply
 
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status','created_on')
+    list_display = ('title', 'slug', 'status','created_on','image')
     list_filter = ("status",)
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
-  
-admin.site.register(Post, PostAdmin)
-
-
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -24,4 +20,13 @@ class CommentAdmin(admin.ModelAdmin):
     #     queryset.update(active=True)
 
 
+class ReplyAdmin(admin.ModelAdmin):
+    list_display = ('name', 'body', 'created_on')
+    list_filter = ( 'created_on',)
+    search_fields = ('name','body')
+
+
+
+admin.site.register(Post, PostAdmin)
 admin.site.register(Comment,CommentAdmin)
+admin.site.register(Reply,ReplyAdmin)

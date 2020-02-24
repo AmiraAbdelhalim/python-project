@@ -1,0 +1,23 @@
+{% extends "adminbase.html" %} 
+{% block content %}
+<!-- <h1>Users</h1> -->
+<table border=1>
+  <th>ID</th>
+  <th>User Name</th>
+  <th>Email</th>
+  <!-- status=block -->
+  <th>Status</th>
+  <th>Admin</th>
+  {% for user in all_users%}
+  <tr>
+    <td>{{user.id}}</td>
+    <td>{{user.username}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.is_staff}}</td>
+    <td>{{user.is_active}}</td>
+
+  </tr>
+  {% endfor%}
+</table>
+
+{% endblock content %}

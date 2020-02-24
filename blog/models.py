@@ -22,6 +22,7 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
+    image = models.ImageField(upload_to='images', null=True)
 
     class Meta:
         ordering = ['-created_on']
@@ -43,3 +44,16 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+
+class Reply (models.Model):
+    name = models.CharField(max_length=80)
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name='replies')
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Reply {} by {}'.format(self.body, self.name)
