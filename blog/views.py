@@ -8,7 +8,7 @@ from blog.forms import UserForm
 from django.views.generic import CreateView
 from django.views import generic
 from .models import Post 
-from .forms import CommentForm , ReplyForm
+from .forms import CommentForm , ReplyForm , PostForm
 
 
 
@@ -132,3 +132,19 @@ def comment_reply(request,commentId,slug):
 
     return HttpResponseRedirect(url)
 
+
+def newPost(request):
+    template_name = 'newPost.html'
+    form = PostForm(data=request.POST)
+
+    if form.is_valid():
+        form.save()
+
+    else:
+        form = PostForm()
+
+    context = {
+        'form' : form,
+    }
+
+    return render (request,template_name,context)
