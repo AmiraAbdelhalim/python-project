@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User as Users
+from blog.models import Post
 # Create your views here.
 
 
@@ -9,7 +10,9 @@ def index(request):
 
 
 def posts(request):
-	return render(request,'posts.html')
+	myPosts=Post.objects.all()
+	context={'all_posts' : myPosts}
+	return render(request,'posts.html',context)
 
 
 def users(request):

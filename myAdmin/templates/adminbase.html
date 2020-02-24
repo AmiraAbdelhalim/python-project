@@ -28,6 +28,9 @@
   <link rel="stylesheet" href="{% static 'plugins/summernote/summernote-bs4.css'%}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- custom style -->
+  <link rel="stylesheet" href="{% static 'dist/css/style.css'%}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -122,11 +125,14 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
           
-
           {% block content %}
         <!-- Content Goes here -->
           {% endblock content %}
+          </div>
+          <div class="col-md-1"></div>
 
           
         </div>
