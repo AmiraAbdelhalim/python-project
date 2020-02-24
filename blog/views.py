@@ -115,4 +115,4 @@ def post_detail(request, slug):
 def PostList(request):
     all_posts = Post.objects.all()
     context = {'post' : all_posts}
-    return render(request ,'home.html' , context)
+    return render(request ,'html/home.html' , context)
