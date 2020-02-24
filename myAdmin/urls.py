@@ -17,5 +17,7 @@ urlpatterns =[
 	path('deleteUser/<id>',views.deleteUser),
 	path('addUser', views.addUser),
 	path('viewUser/<id>', views.viewUser),
+	path('viewAdmin', views.viewAdmin),
+	path('adminInfo/<id>', views.adminInfo),
 
 ]

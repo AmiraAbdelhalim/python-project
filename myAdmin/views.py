@@ -17,7 +17,7 @@ def posts(request):
 
 
 def users(request):
-	all_users= Users.objects.all()
+	all_users= Users.objects.filter(is_staff=False)
 	context={'all_users': all_users}
 	return render(request,'users.html', context)
 
@@ -58,3 +58,18 @@ def viewUser(request, id):
 	user=Users.objects.get(id=id)
 	context={'user':user}
 	return render (request, 'user_details.html', context)
+
+
+def viewAdmin(request):
+	admin=Users.objects.filter(is_staff=True)
+	# if admin.is_staff==True:
+
+		# print(admin)
+	context={'admin':admin}
+	return render(request, 'viewAdmin.html', context)
+
+def adminInfo(request, id):
+	
+	admin=Users.objects.get(id=id)
+	context={'admin':admin}
+	return render (request, 'admin_info.html', context)
