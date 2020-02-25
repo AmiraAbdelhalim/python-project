@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,13 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
+    'myAdmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,10 @@ ROOT_URLCONF = 'pysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'blog/template')],
+        'DIRS': [os.path.join(BASE_DIR,'blog/template/html'),
+        os.path.join(BASE_DIR,'myAdmin/templates')],
+        
+        # [TEMPLATE_DIRS],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +81,7 @@ WSGI_APPLICATION = 'pysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': dict(ENGINE='django.db.backends.mysql', NAME='blogpy', USER='root', PASSWORD='Bl00dyH3ll')
+    'default': dict(ENGINE='django.db.backends.mysql', NAME='newblog', USER='root', PASSWORD='Bl00dyH3ll')
 }
 
 
@@ -111,8 +117,21 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    "/home/habila/Downloads/python-project/python-project/blog/static/css",
+
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR,'blog/static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static'),
+)
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+LOGIN_REDIRECT_URL = "/blog" #redirect after login
+LOGOUT_REDIRECT_URL = "/blog/login" #redirect after logout
+

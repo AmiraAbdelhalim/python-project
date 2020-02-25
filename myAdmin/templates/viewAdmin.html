@@ -1,0 +1,31 @@
+{% extends "adminbase.html" %} 
+{% block content %}
+<div class="row">
+    <table border=1 class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Admin</th>
+          <th scope="col">Admin Info</th>
+          
+        </tr>
+      </thead>
+    
+      {%for ad in admin %}
+    
+      <tr>
+        <td>{{ad.id}}</td>
+        <td>{{ad.username}}</td>
+        <td>{{ad.email}}</td>
+        <!-- admin or not -->
+        <td>{{ad.is_staff}}</td>
+        <td><a href='adminInfo/{{ad.id}}'>View</a></td>
+      </tr>
+    
+      {%endfor%}
+    </table>
+    </div>
+
+{% endblock content %}

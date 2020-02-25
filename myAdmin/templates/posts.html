@@ -1,0 +1,41 @@
+{% extends "adminbase.html" %} 
+{% block content %}
+<div class="row" id="addAny">
+	
+		<a class="btn btn-outline-dark" href="#" role="button">Add Post</a>
+	
+	
+</div>
+<div class="row">
+<table border=1 class="table table-hover">
+	<!-- <th  >Id</th>
+	<th>Title</th>
+	<th>Content</th>
+	<th>author_id</th> -->
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Author</th>
+      <th colspan="3">Operation</th>
+    </tr>
+  </thead>
+
+	{%for post in all_posts %}
+
+	<tr>
+		<td>{{post.id}}</td>
+		<td>{{post.title}}</td>
+		<td>{{post.content}}</td>
+		<td>{{post.author_id}}</td>
+		<td><a href='#'>Edit</a></td>
+		<td><a href='/blog/{{post.slug}}'>View</a></td>
+		<td><a href='#'>Delete</a></td>
+
+	</tr>
+
+	{%endfor%}
+</table>
+</div>
+{% endblock content %}
