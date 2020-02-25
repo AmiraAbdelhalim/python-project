@@ -18,7 +18,7 @@
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         <!-- comments -->
-        <h2>{{ comments.count }} comments          {{ replies.count }} replies</h2>
+        <h2>{{ comments.count }} comments </h2>
         
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
@@ -30,9 +30,9 @@
           </p>
           {{ comment.body | linebreaks }}
           {% if user.is_authenticated %}
-          <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}} ">Reply</button>
+          <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}}">Reply</button>
           {% endif %}
-          <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="replyForm{{comment.id}}">
+          <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="form-reply{{comment.id}}">
             {{ reply_form.as_p }}
             {% csrf_token %}
             <button type="submit" class="btn btn-primary  btn-lg" name="replySubmit">Submit</button> 
@@ -84,10 +84,12 @@
 
 <script> 
 
-  const replyBtns =document.querySelectorAll('[id ^= "reply"]'); 
+  const replyBtns =document.querySelectorAll('[id ^= "reply"]');
+  console.log(document.querySelector('#form-reply15'))
   replyBtns.forEach(btn=> {
     btn.addEventListener('click',(e)=>{
-      const replyForm = document.querySelector('[id = "form-${btn.getAttribute('id')}"]');
+      const replyForm = document.querySelector(`[id = "form-${btn.getAttribute('id')}"]`);
+      console.log(btn.getAttribute('id'))
       replyForm.style.display = 'block';
 
     });

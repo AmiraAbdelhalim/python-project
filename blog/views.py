@@ -7,7 +7,7 @@ from . import forms
 from blog.forms import UserForm
 from django.views.generic import CreateView
 from django.views import generic
-from .models import Post 
+from .models import Post , Comment
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -154,10 +154,12 @@ def comment_reply(request,commentId,slug):
 
 def newPost(request):
     template_name = 'newPost.html'
-    form = PostForm(data=request.POST)
+    if request.method=="POST":
+        form = PostForm(data=request.POST)
 
-    if form.is_valid():
-        form.save()
+        if form.is_valid():
+            form.author = request.user
+            form.save()
 
     else:
         form = PostForm()
