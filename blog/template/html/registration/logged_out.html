@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="text-center">
+    <h3 style="color: royalblue; font-family: cursive;">You are logged out!</h3>
+</br>
+    <a href="{% url 'login'%}">Login Again!</a>
+
+</div>
+
+<!-- <button type="submit" class="btn btn-outline-primary" href="{% url 'login'%}">Login Again</button> -->
+
+{%endblock%}
