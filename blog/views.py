@@ -170,3 +170,7 @@ def newPost(request):
     }
 
     return render (request,template_name,context)
+
+
+def listCat(request,catid):
+    post=Post.models.filter(cat_id=catid)

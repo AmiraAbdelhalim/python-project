@@ -40,4 +40,4 @@ class ReplyForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug','content', 'status','image')
+        fields = ('title', 'slug','content', 'status','cat','image')
