@@ -56,11 +56,14 @@
                         <a class="nav-link" href="#">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sign in</a>
+                        <a class="nav-link" href="login">Sign in</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Sign in / Register</a>
+                    <a class="nav-link" href="signup">Sign in / Register</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login">Log Out</a>
+                        </li>
                     <li class="nav-item">
                     <input type="text" class="form-control" placeholder="Searh">
                     </li>
@@ -68,8 +71,16 @@
             </div>
         </nav>
 
-
-
+        <!-- adding username when logged in
+        and adding admin panal tag if admin -->
+        <div>
+            {% if user.is_authenticated %}
+            <p><a href="#">{{user.username }}</a> </p>
+            {%endif%}
+            {% if user.is_staff%}
+            <p><a href="/admin/">Admin Panal</a></p>
+            {% endif %}
+        </div>
 
 
   <!-- <h1>Small Grid</h1> -->
