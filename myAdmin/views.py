@@ -30,7 +30,7 @@ def addUser(request):
 		else:
 			print("fail")
 	else:
-		user_form=UserForm
+		user_form=UserForm()
 		context={'user_form': user_form}
 		return render(request,"user_add.html", context)
 
