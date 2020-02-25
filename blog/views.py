@@ -154,13 +154,14 @@ def comment_reply(request,commentId,slug):
 
 def newPost(request):
     template_name = 'newPost.html'
+    new_form = None
     if request.method=="POST":
         form = PostForm(data=request.POST)
-
         if form.is_valid():
-            form.author = request.user
-            form.save()
-
+            new_form = form.save(commit=False)
+            new_form.author = request.user
+            new_form.save()
+        return HttpResponseRedirect('/blog')
     else:
         form = PostForm()
 

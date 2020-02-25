@@ -60,3 +60,10 @@ class Reply (models.Model):
 
     def __str__(self):
         return 'Reply {} by {}'.format(self.body, self.name)
+
+
+class Category (models.Model):
+    name = models.CharField(max_length=80 )
+
+    def __str__(self):
+            return self.name

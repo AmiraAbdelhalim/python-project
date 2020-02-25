@@ -25,6 +25,8 @@ class ReplyAdmin(admin.ModelAdmin):
     list_filter = ( 'created_on',)
     search_fields = ('name','body')
 
+    
+
 
 
 admin.site.register(Post, PostAdmin)
