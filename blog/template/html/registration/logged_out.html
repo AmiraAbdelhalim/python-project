@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="text-center">
+    <h3 style="color: royalblue; font-family: cursive;">You are logged out!</h3>
+</br>
+    <a href="{% url 'login'%}">Login Again!</a> </br>
+    <a href="{% url 'home'%}">Go back to the main page</a>
+</div>
+{%endblock%}

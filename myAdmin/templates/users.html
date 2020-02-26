@@ -1,0 +1,73 @@
+{% extends "adminbase.html" %} 
+{% block content %}
+<div class="row">
+  <table border=1 class="table table-hover" id="usersTable">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Admin</th>
+        <th scope="col">Avtive</th>
+        <th colspan="3">Operation</th>
+      </tr>
+    </thead>
+  
+    {%for user in all_users %}
+      {%if user.is_staff == 1 %}
+    <tr id="adminRow">
+      <td>{{user.id}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <!-- admin or not -->
+      <td>{{user.is_staff}}</td>
+      <!-- blocked or not -->
+      <td>{{user.is_active}}</td>
+
+      <!-- <td><a href='editUser/{{user.id}}'>Edit</a></td> -->
+      <!-- <td><a href='addUser'>add</a></td> -->
+      <td colspan="3"><a class="btn btn-dark" id="adminViewBtn" href='viewUser/{{user.id}}'>View</a></td>
+      <!-- <td><a href='deleteUser/{{user.id}}'>Delete</a></td>  -->
+  
+    </tr>
+    {%else%}
+    <tr >
+      <td>{{user.id}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.email}}</td>
+      <!-- admin or not -->
+      <td>{{user.is_staff}}</td>
+      <!-- blocked or not -->
+      <td>{{user.is_active}}</td>
+
+      <!-- <td class="btn-outline-dark"><a href='editUser/{{user.id}}'>Edit</a></td> -->
+      <td>
+        <a class="btn btn-danger" href='editUser/{{user.id}}'>Edit</a>
+      </td>
+      <!-- <td><a href='addUser'>add</a></td> -->
+      <!-- <td ><a href='viewUser/{{user.id}}' class="btn-outline-dark">View</a></td> -->
+      <td >
+        <a class="btn btn-danger" href='viewUser/{{user.id}}' >View</a>
+      </td>
+      <!-- <td ><a href='deleteUser/{{user.id}}' class="btn-outline-dark">Delete</a></td>  -->
+      <td >
+        <a class="btn btn-danger" href='deleteUser/{{user.id}}' >Delete</a>
+      </td> 
+  
+    </tr>
+    {%endif%}
+    {%endfor%}
+  </table>
+  </div>
+  <div class="row" id="addAny">
+	
+		<a class="btn btn-outline-dark" href="/admin/addUser" role="button">Add User</a>
+	
+	
+</div>
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}

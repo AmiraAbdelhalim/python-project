@@ -26,7 +26,9 @@
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ comment.name }}
+              {% if user.is_authenticated %}
+            {{ user }}
+            {% endif %}
             <span class=" text-muted font-weight-normal">
               {{ comment.created_on }}
             </span>
@@ -48,7 +50,7 @@
         {% if reply.comment_id == comment.id %}
         <div class="reply ml-5" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ reply.name}}
+            {{ user}}
             <span class=" text-muted font-weight-normal">
               {{ reply.created_on }}
             </span>

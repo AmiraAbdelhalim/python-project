@@ -1,9 +1,10 @@
-#urls redirection
+# urls redirection
 
 
 from django.urls import path
 from blog import views
 from django.contrib.auth import views as auth_views
+
 
 
 	
@@ -12,6 +13,7 @@ urlpatterns =[
 	
 	path('signup/', views.SignUp.as_view(), name='signup'),
 	path('login/', auth_views.LoginView.as_view(),name="login"),
+	path('logout/',auth_views.LogoutView.as_view(), name="logout"),
 	path('newPost/',views.newPost,name='newPost'),
 	path('', views.PostList, name='home'),
 	path('sub/<category_id>', views.subscribe, name ='subscribe'),
@@ -25,3 +27,4 @@ urlpatterns =[
 	
 	# path('login/', auth_views.LoginView.as_view(),name="login"),
 ]
+

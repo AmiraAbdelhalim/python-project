@@ -9,9 +9,6 @@ class Users(auth.models.User):
     def __str__(self):
         return self.username
 
-
-
-
 STATUS = (
     (0,"Draft"),
     (1,"Publish")

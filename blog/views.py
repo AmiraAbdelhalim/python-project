@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth import login, logout
+from blog.models import Users
 from blog.models import Users , Reply
 from django.http import HttpResponse, HttpResponseRedirect
 from . import forms
@@ -11,34 +14,16 @@ from .models import Post , Comment ,Subscribe,Category
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.text import slugify
+from .models import Post
+from .forms import CommentForm
+#from django.contrib.auth.forms import AuthenticationForm
+from .models import Post 
+from .forms import CommentForm , ReplyForm
 
 
 
 
-# Create your views here.
-# class SignUp(CreateView):
-#     form_class = forms.UserForm
-#     success_url = reverse_lazy('login') #reverse_lazy to redirect the user to the login page upon successful registration.
-#     template_name = 'signup.html'
-#     # return httpResponseRedirect(success_url)
 
-#     def signup(request):
-#         if request.method == 'POST':
-#             form = UserForm(request.POST)
-#             if form.is_valid():
-                
-#                 form.save()
-#                 user = form.cleaned_data.get('username')
-#                 raw_password = form.cleaned_data.get('password1')
-#                 user = authenticate(username=user, password=raw_password)
-#                 login(request, user)
-#                 return HttpResponseRedirect("login")
-#         else:
-#             form = UserForm()
-#             return render(request, 'signup.html', {'form': form})
-
-# def home(request):
-#     return render(request, 'index.html')
 
 
 class SignUp(CreateView):
@@ -47,28 +32,11 @@ class SignUp(CreateView):
     # #reverse_lazy to redirect the user to the login page upon successful registration.
     template_name = 'signup.html'
 
-
-    # def signup(request):
-    #     if request.method == 'POST':
-    #         print("sigup")
-    #         form = UserForm(request.POST)
-    #         if form.is_valid():
-    #             # user = form.save()
-    #             form.save()
-    #             user= form.cleaned_data.get('username')
-    #             raw_password = form.cleaned_data.get('password1')
-    #             user = authenticate(username=user, password=raw_password)
-    #             login(request, user)
-    #             return HttpResponseRedirect("login")
-    #     else:
-    #         form = UserForm()
-    #         return render(request, 'signup.html', {'form': form})
-
 def home(request):
     return render(request, 'index.html')
 
 
-# Create your views here.
+
 
 # class PostList(generic.ListView):
 #     queryset = Post.objects.filter(status=1).order_by('-created_on')
@@ -97,9 +65,7 @@ def PostList(request):
                    'cats': cats,
                    'checks': check})
 
-# class PostDetail(generic.DetailView):
-#     model = Post
-#     template_name = 'post_detail.html'
+
 
 
 def post_detail(request, slug):
@@ -230,3 +196,10 @@ def checks (cats,subs):
     return checks
 
         
+
+
+
+def PostList(request):
+    all_posts = Post.objects.all()
+    context = {'post' : all_posts}
+    return render(request ,'home.html' , context)
