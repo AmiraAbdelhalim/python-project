@@ -12,4 +12,5 @@ urlpatterns = [
     path('', views.PostList, name='home'),
     path('<slug:slug>/', views.post_detail, name='post_detail'),
     path('home', views.home),
+    path('logout/',auth_views.LogoutView.as_view(template_name="logout.html"), name="logout"),
 ]
