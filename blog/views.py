@@ -7,7 +7,7 @@ from . import forms
 from blog.forms import UserForm
 from django.views.generic import CreateView
 from django.views import generic
-from .models import Post , Comment
+from .models import Post , Comment ,Subscribe,Category
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.text import slugify
@@ -77,8 +77,11 @@ def home(request):
 
 def PostList(request):
     object_list = Post.objects.filter(status=1).order_by('-created_on')
+    cats = Category.objects.all()
+    subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
     paginator = Paginator(object_list, 3)  # 3 posts in each page
     page = request.GET.get('page')
+    check = checks(cats,subs)
     try:
         post_list = paginator.page(page)
     except PageNotAnInteger:
@@ -90,7 +93,9 @@ def PostList(request):
     return render(request,
                   'index.html',
                   {'page': page,
-                   'post_list': post_list})
+                   'post_list': post_list,
+                   'cats': cats,
+                   'checks': check})
 
 # class PostDetail(generic.DetailView):
 #     model = Post
@@ -180,3 +185,48 @@ def newPost(request):
 
 def listCat(request,catid):
     post=Post.models.filter(cat_id=catid)
+    if request.method =='POST':
+        form = PostForm(data=request.POST)
+        
+        if form.is_valid():
+
+            form.save()
+
+    else:
+        form = PostForm()
+
+    return HttpResponseRedirect(url)
+
+
+
+
+def subscribe(request, category_id):
+    try:
+        cat = Category.objects.get(id = category_id)
+        Subscribe.objects.create(subscriber_id = request.user, category_id = cat)
+    finally:
+        return HttpResponseRedirect('/blog')
+
+
+def unsubscribe(request,category_id):
+    try:
+        cat = Category.objects.get(id = category_id)
+        sub = Subscribe.objects.get(subscriber_id = request.user, category_id = cat)
+        sub.delete()
+    finally:
+        return HttpResponseRedirect('/blog')
+
+
+def checks (cats,subs):
+    checks= []
+    for cat in cats:
+        if cat.id in subs:
+            check = cat.id
+
+        else:
+            check =-1
+        checks.append(check)
+
+    return checks
+
+        

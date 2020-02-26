@@ -50,7 +50,17 @@
             {% endfor %}
         </div>
         {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
-        
+        {% for cat in cats %}
+        <h2><a href="">{{cat.name}}</a></h2>
+            
+                {% if cat.id in checks %}
+                    <a href= "{% url 'unsubscribe' category_id=cat.id %}">subcribed</a>
+                {% else %}
+                    <a href= "{% url 'subscribe' category_id=cat.id %}">subcribe</a>
+                {% endif %}
+
+                <hr>
+        {% endfor %}
     </div>
 </div>
 
