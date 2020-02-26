@@ -165,6 +165,7 @@
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+<!-- <script src="{% static 'dt/datatables.min.js' %}"></script> -->
 <!-- jQuery UI 1.11.4 -->
 <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js'%}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -197,5 +198,7 @@
 <script src="{% static 'dist/js/pages/dashboard.js'%}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js'%}"></script>
+{% block js %}
+{% endblock js %}
 </body>
 </html>
