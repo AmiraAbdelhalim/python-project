@@ -23,5 +23,6 @@ urlpatterns =[
 	path('addCat',views.addCat),
 	path('goAdd',views.goAdd),
 	path('viewCat/<id>',views.viewCat),
-
+	path('deleteCat/<id>',views.deleteCat),
+	path('editCat/<id>',views.editCat),
 ]

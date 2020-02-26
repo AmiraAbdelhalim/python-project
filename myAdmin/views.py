@@ -103,3 +103,17 @@ def viewCat(request, id):
 	}
 	return render (request, 'cat_details.html', context)
 
+def deleteCat(request, id):
+	cat=Category.objects.get(id=id)
+	cat.delete()
+	return HttpResponseRedirect("/admin/viewCategories")
+
+def editCat(request,id):
+	cat = Category.objects.get(id=id)
+	if request.method == 'POST':
+		cateInstance = Category()
+		cateInstance.name = request.POST['myCategory']
+		cateInstance.save()
+		return  HttpResponseRedirect("/admin/viewCategories")
+	else:
+		print("fail")
