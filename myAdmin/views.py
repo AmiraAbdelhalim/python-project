@@ -94,3 +94,12 @@ def goAdd(request):
 	context={'all_cat': cat}
 	return render (request, 'catAdd.html',context)
 
+def viewCat(request, id):
+	cat=Category.objects.get(id=id)
+	myPosts=Post.objects.all()
+
+	context={'cat':cat,
+			 'myPosts':myPosts
+	}
+	return render (request, 'cat_details.html', context)
+

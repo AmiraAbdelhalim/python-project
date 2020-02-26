@@ -22,5 +22,6 @@ urlpatterns =[
 	path('viewCategories',views.viewCategories),
 	path('addCat',views.addCat),
 	path('goAdd',views.goAdd),
+	path('viewCat/<id>',views.viewCat),
 
 ]
