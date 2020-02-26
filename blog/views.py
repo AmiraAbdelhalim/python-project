@@ -10,6 +10,7 @@ from django.views import generic
 from .models import Post , Comment
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils.text import slugify
 
 
 
@@ -154,20 +155,25 @@ def comment_reply(request,commentId,slug):
 
 def newPost(request):
     template_name = 'newPost.html'
-    new_form = None
+
+    # new_form = None
     if request.method=="POST":
-        form = PostForm(data=request.POST)
-        if form.is_valid():
+        form = PostForm(request.POST,request.FILES)
+        if(form.is_valid()):
+            print("vaild")
             new_form = form.save(commit=False)
             new_form.author = request.user
+            new_form.slug=slugify(new_form.title)
             new_form.save()
-        return HttpResponseRedirect('/blog')
+            # form.save()
+            return HttpResponseRedirect('/blog')
     else:
         form = PostForm()
+  
 
     context = {
-        'form' : form,
-    }
+            'form' : form,
+            }
 
     return render (request,template_name,context)
 
