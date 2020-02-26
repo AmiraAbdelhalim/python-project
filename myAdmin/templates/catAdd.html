@@ -1,0 +1,36 @@
+{% extends "adminbase.html" %} 
+{% block content %}
+
+<div class="row">
+<table border=1 class="table table-hover">
+	<!-- <th  >Id</th>
+	<th>Title</th>
+	<th>Content</th>
+	<th>author_id</th> -->
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Category</th>
+      <th colspan="2">Operations</th>
+    </tr>
+  </thead>
+
+	{%for cat in all_cat %}
+
+	<tr>
+		<td>{{cat.name}}</td>
+		<td><a href='#'>Edit</a></td>
+		<td><a href='#'>Delete</a></td>
+
+	</tr>
+
+	{%endfor%}
+</table>
+<div class="row" id="addAny">
+    <form method="POST" action="/admin/addCat"> 
+    {% csrf_token %}
+    <input type="text" name="myCategory">
+    <button type="submit" class="btn btn-outline-dark" >Add</button>
+    </form>
+</div>
+</div>
+{% endblock content %}

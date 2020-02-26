@@ -14,8 +14,6 @@ from .models import Post , Comment ,Subscribe,Category
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.text import slugify
-from .models import Post
-from .forms import CommentForm
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import Post 
 from .forms import CommentForm , ReplyForm
@@ -194,8 +192,6 @@ def checks (cats,subs):
         checks.append(check)
 
     return checks
-
-        
 
 
 

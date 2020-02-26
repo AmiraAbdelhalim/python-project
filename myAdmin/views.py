@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User as Users
-from blog.models import Post
+from blog.models import Post, Category
 from myAdmin.forms import UserForm
 # Create your views here.
 
@@ -73,3 +73,24 @@ def adminInfo(request, id):
 	admin=Users.objects.get(id=id)
 	context={'admin':admin}
 	return render (request, 'admin_info.html', context)
+
+def viewCategories(request):
+	cat=Category.objects.all()
+	context={'all_cat': cat}
+	return render (request, 'categories.html',context)
+
+def addCat(request):
+	if request.method == 'POST':
+		cateInstance = Category()
+		cateInstance.name = request.POST['myCategory']
+		cateInstance.save()
+		return  HttpResponseRedirect("/admin/viewCategories")
+	else:
+		print("fail")
+
+
+def goAdd(request):
+	cat=Category.objects.all()
+	context={'all_cat': cat}
+	return render (request, 'catAdd.html',context)
+

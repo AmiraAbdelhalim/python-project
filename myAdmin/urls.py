@@ -19,5 +19,8 @@ urlpatterns =[
 	path('viewUser/<id>', views.viewUser),
 	path('viewAdmin', views.viewAdmin),
 	path('adminInfo/<id>', views.adminInfo),
+	path('viewCategories',views.viewCategories),
+	path('addCat',views.addCat),
+	path('goAdd',views.goAdd),
 
 ]
