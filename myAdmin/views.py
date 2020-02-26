@@ -17,7 +17,7 @@ def posts(request):
 
 
 def users(request):
-	all_users= Users.objects.filter(is_staff=False)
+	all_users= Users.objects.all()
 	context={'all_users': all_users}
 	return render(request,'users.html', context)
 
