@@ -4,6 +4,8 @@
 from django.urls import path
 from blog import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
+
 
 
 
@@ -22,7 +24,9 @@ urlpatterns =[
     path('<slug:slug>/', views.post_detail, name='post_detail'),
 	path('<slug>/<commentId>/',views.comment_reply,name="comment_reply"),
 	path('editPost/<slug:slug>',views.editPost),
-
+	# path('deleteComment/<slug>/<commentId>',views.deleteComment),
+	url(r'^deleteComment/(?P<slug>\w+)/(?P<id>\w+)/$',
+    views.deleteComment, name='deleteComment'),
 	
 	# path('login/', views.SignUp.signup),
 	

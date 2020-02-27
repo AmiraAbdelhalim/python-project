@@ -121,8 +121,5 @@ def editCat(request,id):
 		return render(request,"catAdd.html",context)
 
 
-def deletePost(request, slug):
-	post=Post.objects.get(slug)
-	post.delete()
-	return HttpResponseRedirect("/admin/posts")
+
 

@@ -214,3 +214,10 @@ def editPost(request,slug):
 		form = PostForm(instance=post)
 		context = {'form':form}
 		return render(request,"newPost.html",context)
+
+
+def deleteComment(request,slug,id):
+    url = '/blog/'+slug
+    comment=Comment.objects.get(id=id)
+    comment.delete()
+    return HttpResponseRedirect(url)

@@ -25,6 +25,7 @@
         
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
+          
           <p class="font-weight-bold">
               {% if user.is_authenticated %}
             {{ user }}
@@ -37,6 +38,9 @@
           {% if user.is_authenticated %}
           <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}}">Reply</button>
           {% endif %}
+          {% if user.is_staff%}
+          <a class="btn btn-primary" href="{% url 'deleteComment' post.slug comment.id %}">Delete</a>
+          {%endif%}
           <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="form-reply{{comment.id}}">
             {{ reply_form.as_p }}
             {% csrf_token %}
