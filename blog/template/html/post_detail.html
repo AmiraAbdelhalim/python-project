@@ -63,6 +63,9 @@
         </div>
         
         {% endif %}
+        {% if user.is_staff%}
+          <a class="btn btn-primary" href="{% url 'deleteReply' post.slug reply.id %}">Delete</a>
+          {%endif%}
         {% endfor %}
 
         {% endfor %}

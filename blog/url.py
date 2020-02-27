@@ -27,6 +27,8 @@ urlpatterns =[
 	# path('deleteComment/<slug>/<commentId>',views.deleteComment),
 	url(r'^deleteComment/(?P<slug>\w+)/(?P<id>\w+)/$',
     views.deleteComment, name='deleteComment'),
+	url(r'^deleteReply/(?P<slug>\w+)/(?P<id>\w+)/$',
+    views.deleteReply, name='deleteReply'),
 	
 	# path('login/', views.SignUp.signup),
 	

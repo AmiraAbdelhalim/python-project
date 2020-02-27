@@ -221,3 +221,9 @@ def deleteComment(request,slug,id):
     comment=Comment.objects.get(id=id)
     comment.delete()
     return HttpResponseRedirect(url)
+
+def deleteReply(request,slug,id):
+    url = '/blog/'+slug
+    reply=Reply.objects.get(id=id)
+    reply.delete()
+    return HttpResponseRedirect(url)
