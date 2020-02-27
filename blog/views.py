@@ -10,7 +10,7 @@ from . import forms
 from blog.forms import UserForm
 from django.views.generic import CreateView
 from django.views import generic
-from .models import Post , Comment ,Subscribe,Category
+from .models import Post , Comment ,Subscribe,Category,Likes
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.text import slugify
@@ -43,6 +43,7 @@ def home(request):
 
 def PostList(request):
     object_list = Post.objects.filter(status=1).order_by('-created_on')
+    template_name = 'index.html'
     cats = Category.objects.all()
     subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
     paginator = Paginator(object_list, 3)  # 3 posts in each page
@@ -69,10 +70,22 @@ def PostList(request):
 def post_detail(request, slug):
     url = '/blog/' + slug
     template_name = 'post_detail.html'
+    # post = get_object_or_404(POST,slug=slug)
+    
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(active=True)
     replies = Reply.objects.all()
     new_comment = None
+    likesCount=Likes.objects.filter(postID_id=post.id,isLiked=False).count()
+    if likesCount==2:
+        post.delete()
+        return HttpResponseRedirect('/blog')
+
+
+
+
+
+
     # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -105,16 +118,24 @@ def comment_reply(request,commentId,slug):
 
     if request.method =='POST':
         print(request.GET)
+        # comment_form = CommentForm(data=request.POST)
         reply_form = ReplyForm(data=request.POST)
         print(reply_form)
+        # if comment_form.is_valid():
+        #     comment =comment_form.save(commit=False)
+        #     comment.author = request.user
+        #     comment.save()
+            
         if reply_form.is_valid():
 
             reply = reply_form.save(commit=False)
-
             reply.comment = comment
-            reply.name = request.user
-
-            reply.save()
+            comment.author = request.user
+            reply.author = request.user
+            print('commit',comment)
+            print('reply',reply)
+            # comment.save()
+            # reply.save()
 
     else:
         reply_form = ReplyForm()
@@ -196,11 +217,71 @@ def checks (cats,subs):
     return checks
 
 
+def liked(request,postID,slug):
+    url = '/blog/'+slug
+    template_name = 'post_detail.html'
+    post = get_object_or_404(Post, slug=slug)
+    post = Post.objects.get(id=postID)
+    print('idddddddddddddddd='+postID)
+    # print('idddddddddddddddd='+postTitle)
 
-def PostList(request):
-    all_posts = Post.objects.all()
-    context = {'post' : all_posts}
-    return render(request ,'home.html' , context)
+
+    currentUser = request.user.id
+    # try:
+    like, created = Likes.objects.get_or_create(postID_id=postID, userID_id=currentUser, isLiked=True)
+    if created==True:
+        Likes.objects.filter(postID_id=postID, userID_id=currentUser, isLiked=False).delete()
+    # except Exception as e:
+    #     pass
+    # finally:
+        # likesDic = {'post': post, 'user': currentUser}
+        # return HttpResponseRedirect('/blog' + post.slug)
+        # return render(request, template_name)
+    return HttpResponseRedirect(url)
+
+
+def disliked(request,postID,slug):
+    url = '/blog/'+slug
+    template_name = 'post_detail.html'
+    post = get_object_or_404(Post, slug=slug)
+    post = Post.objects.get(id=postID)
+    print('dislikeeeeeeeeed')
+    currentUser = request.user.id
+    dislike, created = Likes.objects.get_or_create(postID_id=postID, userID_id=currentUser, isLiked=False)
+    if created==True:
+        Likes.objects.filter(postID_id=postID, userID_id=currentUser, isLiked=True).delete()
+
+   
+        # likesDic = {'post': post, 'user': currentUser}
+        # return HttpResponseRedirect('/posts/'+postID)
+        # return HttpResponseRedirect('/blog' + post.slug)
+        # return render(request, template_name)
+        # return HttpResponseRedirect(request,template_name)
+    return HttpResponseRedirect(url)
+
+def search(request):
+    if request.method=='POST':
+        srch = request.POST['srch']
+        if srch:
+            match = Post.objects.filter(Q(slug__icontains=srch))
+            if match:
+                return render(request , "search.html" ,{'sr' : match})
+            else:
+                messages.error(request , "no result found")
+
+        else:
+            return HttpResponseRedirect('/search/')
+    return render(request , 'search.html')
+
+
+# def PostList(request):
+#     all_posts = Post.objects.all()
+#     context = {'post' : all_posts}
+#     return render(request ,'index.html' , context)
+# def PostList(request):
+#     all_posts = Post.objects.all()
+#     context = {'post' : all_posts}
+#     return render(request ,'home.html' , context)
 
 
 def editPost(request,slug):

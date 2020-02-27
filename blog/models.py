@@ -44,6 +44,7 @@ class Post(models.Model):
     # image= models.ImageField(upload_to='images', null=True)
     image= models.ImageField(verbose_name="image",upload_to='images/', null=True, )
     cat=models.ForeignKey(Category,null=True,on_delete= models.CASCADE)
+    
 
     class Meta:
         ordering = ['-created_on']
@@ -59,6 +60,7 @@ class Comment(models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=True)
+    author = models.ForeignKey(User, on_delete= models.CASCADE, default=1)
 
     class Meta:
         ordering = ['created_on']
@@ -72,11 +74,17 @@ class Reply (models.Model):
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     comment = models.ForeignKey(Comment,on_delete=models.CASCADE,related_name='replies')
-
+    author = models.ForeignKey(User, on_delete= models.CASCADE, default=1)
+    
     class Meta:
         ordering = ['created_on']
 
     def __str__(self):
         return 'Reply {} by {}'.format(self.body, self.name)
 
+
+class Likes(models.Model):
+    userID = models.ForeignKey(User, on_delete=models.CASCADE)
+    postID = models.ForeignKey(Post, on_delete=models.CASCADE)
+    isLiked=models.BooleanField(null=True)
 
