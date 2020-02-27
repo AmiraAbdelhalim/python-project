@@ -67,9 +67,12 @@ def PostList(request):
 
 
 
+
+
 def post_detail(request, slug):
     url = '/blog/' + slug
     template_name = 'post_detail.html'
+   
     # post = get_object_or_404(POST,slug=slug)
     
     post = get_object_or_404(Post, slug=slug)
@@ -82,19 +85,16 @@ def post_detail(request, slug):
         return HttpResponseRedirect('/blog')
 
 
-
-
-
-
     # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
-
+           
             # Create Comment object but don't save to database yet
             new_comment = comment_form.save(commit=False)
             # Assign the current post to the comment
             new_comment.post = post
+            new_comment.author=request.user
             # Save the comment to the database
             new_comment.save()
             # return HttpResponseRedirect(url)
@@ -115,7 +115,7 @@ def comment_reply(request,commentId,slug):
     comment = get_object_or_404(Comment,id=commentId)
     print(comment)
     url = '/blog/'+slug
-
+    
     if request.method =='POST':
         print(request.GET)
         # comment_form = CommentForm(data=request.POST)
@@ -127,19 +127,22 @@ def comment_reply(request,commentId,slug):
         #     comment.save()
             
         if reply_form.is_valid():
-
+            
             reply = reply_form.save(commit=False)
             reply.comment = comment
+            
             comment.author = request.user
+           
             reply.author = request.user
             print('commit',comment)
             print('reply',reply)
             # comment.save()
-            # reply.save()
+            reply.save()
+           
 
     else:
         reply_form = ReplyForm()
-
+        
     return HttpResponseRedirect(url)
 
 
@@ -224,8 +227,8 @@ def liked(request,postID,slug):
     post = Post.objects.get(id=postID)
     print('idddddddddddddddd='+postID)
     # print('idddddddddddddddd='+postTitle)
-
-
+    like_count=len(Likes.objects.filter(postID=postID))
+    
     currentUser = request.user.id
     # try:
     like, created = Likes.objects.get_or_create(postID_id=postID, userID_id=currentUser, isLiked=True)
@@ -295,3 +298,28 @@ def editPost(request,slug):
 		form = PostForm(instance=post)
 		context = {'form':form}
 		return render(request,"newPost.html",context)
+
+#cat_post
+def cat_post(request,id):
+    object_list = Post.objects.filter(status=1).filter(cat=id).order_by('-created_on')
+    template_name = 'index.html'
+    cats = Category.objects.all()
+    subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
+    paginator = Paginator(object_list, 3)  # 3 posts in each page
+    page = request.GET.get('page')
+    check = checks(cats,subs)
+    try:
+        post_list = paginator.page(page)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        post_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        post_list = paginator.page(paginator.num_pages)
+    return render(request,
+                  'index.html',
+                  {'page': page,
+                   'post_list': post_list,
+                   'cats': cats,
+                   'checks': check})
+

@@ -13,7 +13,7 @@
     <p class="card-text"> subscrube</p>
     <a href="https://google.com" class="btn btn-danger">Know more!</a> -->
             {% for cat in cats %}
-        <h2><a href="">{{cat.name}}</a></h2>
+             <h2><a href="#">{{cat.name}}</a></h2>
             
                 {% if cat.id in checks %}
                     <a href= "{% url 'unsubscribe' category_id=cat.id %}">subcribed</a>

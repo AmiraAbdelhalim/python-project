@@ -29,7 +29,7 @@ urlpatterns =[
     # url(r'^(?P<postID>[\w])/(?P<postTitle>[\w]+)/d/$', views.disliked),
 	path('editPost/<slug:slug>',views.editPost),
 
-	
+	path('cat_post/<id>',views.cat_post),
 	# path('login/', views.SignUp.signup),
 	
 	# path('login/', auth_views.LoginView.as_view(),name="login"),

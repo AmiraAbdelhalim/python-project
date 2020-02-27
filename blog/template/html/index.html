@@ -99,7 +99,7 @@
               <h4>Categories</h4>
               <ul class="nav nav-pills nav-stacked " id="categories">
                 {% for cat in cats %}
-                <li><a href="">{{cat.name}}</a></li>
+                <li><a href="/blog/cat_post/{{cat.id}}">{{cat.name}}</a></li>
             
                 {% if cat.id in checks %}
                     <a href= "{% url 'unsubscribe' category_id=cat.id %}">subcribed</a>
