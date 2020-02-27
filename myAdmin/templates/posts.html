@@ -1,11 +1,6 @@
 {% extends "adminbase.html" %} 
 {% block content %}
-<div class="row" id="addAny">
-	
-		<a class="btn btn-outline-dark" href="#" role="button">Add Post</a>
-	
-	
-</div>
+
 <div class="row">
 <table border=1 class="table table-hover">
 	<!-- <th  >Id</th>
@@ -29,13 +24,17 @@
 		<td>{{post.title}}</td>
 		<td>{{post.content}}</td>
 		<td>{{post.author_id}}</td>
-		<td><a href='#'>Edit</a></td>
+		<td><a href='/blog/editPost/{{post.slug}}'>Edit</a></td>
 		<td><a href='/blog/{{post.slug}}'>View</a></td>
-		<td><a href='#'>Delete</a></td>
+		<td><a href='/admin/deletePost/{{post.id}}'>Delete</a></td>
 
 	</tr>
 
 	{%endfor%}
 </table>
+<div class="row" id="addAny">
+	
+	<a class="btn btn-outline-dark" href="../blog/newPost" role="button">Add Post</a>
+</div>
 </div>
 {% endblock content %}

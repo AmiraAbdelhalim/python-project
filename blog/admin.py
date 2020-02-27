@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Post, Comment , Reply
+from .models import Post, Comment , Reply , Category, Subscribe
 
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status','created_on','image')
+    list_display = ('title', 'slug', 'status','created_on','image','cat')
     list_filter = ("status",)
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ('title',)}
@@ -25,8 +25,12 @@ class ReplyAdmin(admin.ModelAdmin):
     list_filter = ( 'created_on',)
     search_fields = ('name','body')
 
+    
+
 
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(Reply,ReplyAdmin)
+admin.site.register(Category)
+admin.site.register(Subscribe)

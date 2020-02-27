@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'profanity',
     
 ]
 
@@ -81,7 +82,7 @@ WSGI_APPLICATION = 'pysite.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dict(ENGINE='django.db.backends.mysql', NAME='newblog', USER='root', PASSWORD='Bl00dyH3ll')
+    'default': dict(ENGINE='django.db.backends.mysql', NAME='pythonPro', USER='fatma', PASSWORD='2552005')
 }
 
 
@@ -133,5 +134,5 @@ STATICFILES_DIRS=(
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 LOGIN_REDIRECT_URL = "/blog" #redirect after login
-LOGOUT_REDIRECT_URL = "/blog/login" #redirect after logout
+# LOGOUT_REDIRECT_URL = "/blog/login" #redirect after logout
 

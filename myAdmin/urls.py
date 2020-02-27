@@ -19,5 +19,12 @@ urlpatterns =[
 	path('viewUser/<id>', views.viewUser),
 	path('viewAdmin', views.viewAdmin),
 	path('adminInfo/<id>', views.adminInfo),
-
+	path('viewCategories',views.viewCategories),
+	path('addCat',views.addCat),
+	# path('goAdd',views.goAdd),
+	path('viewCat/<id>',views.viewCat),
+	path('deleteCat/<id>',views.deleteCat),
+	path('editCat/<id>',views.editCat),
+	# path('deletePost/<id>',views.deletePost),
+	# path('editPost/<id>',views.editPost),
 ]

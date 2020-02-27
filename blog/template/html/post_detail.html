@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-
+{% load profanity %}
 
 
 <div class="container">
@@ -9,8 +9,14 @@
         <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
         
         <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-        <img src="{{post.image.url}}" height="150" width="150">
+        <p class=" text-muted">{{ post.cat }}</p>
+        {% if post.image %}
+        <img src="{{post.image.url}}" height="250" width="350">
+        {% endif %}
         <p class="card-text ">{{ post.content | safe }}</p>
+        <h4>{{ liked.count }} Likes </h4>
+        <button><a href="{{post.id}}/l/">like</a></button>
+        <button><a href="{{post.id}}/d/">dislike</a></button>
       </div>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
@@ -18,38 +24,52 @@
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         <!-- comments -->
-        <h2>{{ comments.count }} comments          {{ replies.count }} replies</h2>
+        
+        <h2>{{ comments.count }} comments </h2>
         
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
+          
           <p class="font-weight-bold">
-            {{ comment.name }}
+              {% if user.is_authenticated %}
+            {{ comment.author }}
+            {% endif %}
             <span class=" text-muted font-weight-normal">
               {{ comment.created_on }}
             </span>
           </p>
-          {{ comment.body | linebreaks }}
-          <button type="submit" class="btn btn-primary  btn-lg" id="replybtn{{comment.id}} ">Repaly</button>
-          
-        </div>
-        <div style="display:none" id="replyForm{{comment.id}}">
+          {{ comment.body | linebreaks | censor }}
+          {% if user.is_authenticated %}
+          <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}}">Reply</button>
+          {% endif %}
+          {% if user.is_staff%}
+          <a class="btn btn-primary" href="{% url 'deleteComment' post.slug comment.id %}">Delete</a>
+          {%endif%}
+          <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="form-reply{{comment.id}}">
             {{ reply_form.as_p }}
-        {% csrf_token %}
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary  btn-lg" name="replySubmit">Submit</button> 
+          </form>
+
         </div>
+        
         
         {% for reply in replies %}
         {% if reply.comment_id == comment.id %}
         <div class="reply ml-5" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ reply.name}}
+            {{ reply.author }}
             <span class=" text-muted font-weight-normal">
               {{ reply.created_on }}
             </span>
           </p>
-          {{ reply.body | linebreaks }}
+          {{ reply.body | linebreaks | censor }}
         </div>
         
         {% endif %}
+        {% if user.is_staff%}
+          <a class="btn btn-primary" href="{% url 'deleteReply' post.slug reply.id %}">Delete</a>
+          {%endif%}
         {% endfor %}
 
         {% endfor %}
@@ -70,23 +90,35 @@
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
         </form>
         {% endif %}
+        <!-- <button type="submit" class="btn btn-primary  btn-lg">Submit</button> -->
       </div>
     </div>
     
   </div>
 </div>
-{% endblock content %}
+
 
 
 <script> 
 
-  const reply =document.querySelectorAll("[id ^= 'replytn']") 
-  reply.forEach(element=> {
-    element.addEventListener('click', function(e) {
-      // const form = document.querySelector(`[id $= '${comment.id}]`);
-      console.log(e)
-      reply.style.display = 'block'
-    })
-  })
+  const replyBtns =document.querySelectorAll('[id ^= "reply"]');
+  console.log(document.querySelector('#form-reply15'))
+  replyBtns.forEach(btn=> {
+    btn.addEventListener('click',(e)=>{
+      const replyForm = document.querySelector(`[id = "form-${btn.getAttribute('id')}"]`);
+      console.log(btn.getAttribute('id'))
+      replyForm.style.display = 'block';
+
+    });
+  });
+
+  //   element.addEventListener('click', function(e) {
+  //     // const form = document.querySelector(`[id $= '${comment.id}]`);
+  //     console.log(e)
+  //     reply.style.display = 'block'
+  //   })
+  // })
 
  </script>
+
+{% endblock content %}

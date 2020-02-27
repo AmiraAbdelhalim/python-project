@@ -43,10 +43,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="../blog" class="nav-link">Home</a>
       </li>
     </ul>
 
@@ -89,23 +86,35 @@
          
             <ul class="nav nav-pills nav-sidebar flex-column" role="menu" data-accordion="false">
               <li class="nav-item">
-                <a href="posts" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="/admin/posts" class="nav-link">
+                  <i class="far fa-clipboard"></i>
                   <p>Posts</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="users" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="/admin/users" class="nav-link">
+                  <i class="far fa-user"></i>
                   <p>Users</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="viewAdmin" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Admins</p>
+                <a href="/admin/viewAdmin" class="nav-link">
+                  <i class="far fa-id-badge"></i>
+                                    <p>Admins</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/viewCategories" class="nav-link">
+                  <i class="far fa-folder-open"></i>
+                     <p>Categories</p>
+                </a>
+              </li>
+              <!-- <li class="nav-item">
+                <a href="/admin/viewAdmin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Forbidden words</p>
+                </a>
+              </li> -->
             </ul>
          
           
@@ -165,6 +174,7 @@
 
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js'%}"></script>
+<!-- <script src="{% static 'dt/datatables.min.js' %}"></script> -->
 <!-- jQuery UI 1.11.4 -->
 <script src="{% static 'plugins/jquery-ui/jquery-ui.min.js'%}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -197,5 +207,7 @@
 <script src="{% static 'dist/js/pages/dashboard.js'%}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js'%}"></script>
+{% block js %}
+{% endblock js %}
 </body>
 </html>

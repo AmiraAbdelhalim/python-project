@@ -2,3 +2,28 @@
 	
 	margin :.3rem 0 .3rem 0 ;
 }
+#adminRow{
+	background-color:#c9321eb9;
+	
+}
+
+
+#adminRow:hover{
+	background-color:#c9321e;
+
+}
+
+#adminViewBtn{
+	width: 100%;
+}
+.btn-danger{
+	width: 100%;
+}
+.btn-outline-dark{
+	width: 100%;
+}
+
+.far{
+	scale: 1.7;
+margin: 10px 10px;
+}

@@ -8,10 +8,21 @@
 <!-- Sidebar Widgets Column -->
 <div class="col-md-4 float-right ">
 <div class="card my-4">
-    <h5 class="card-header">About Us</h5>
+    <!-- <h5 class="card-header">About Us</h5>
 <div class="card-body">
     <p class="card-text"> subscrube</p>
-    <a href="https://google.com" class="btn btn-danger">Know more!</a>
-</div>
+    <a href="https://google.com" class="btn btn-danger">Know more!</a> -->
+            {% for cat in cats %}
+        <h2><a href="">{{cat.name}}</a></h2>
+            
+                {% if cat.id in checks %}
+                    <a href= "{% url 'unsubscribe' category_id=cat.id %}">subcribed</a>
+                {% else %}
+                    <a href= "{% url 'subscribe' category_id=cat.id %}">subcribe</a>
+                {% endif %}
+
+                <hr>
+        {% endfor %}
+<!-- </div> -->
 </div>
 </div>
