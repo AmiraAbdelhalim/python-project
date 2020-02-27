@@ -24,7 +24,7 @@
 		<td>{{post.title}}</td>
 		<td>{{post.content}}</td>
 		<td>{{post.author_id}}</td>
-		<td><a href='/blog/viewPost/{{post.id}}'>Edit</a></td>
+		<td><a href='/blog/editPost/{{post.id}}'>Edit</a></td>
 		<td><a href='/blog/{{post.slug}}'>View</a></td>
 		<td><a href='/blog/deletePost/{{post.id}}'>Delete</a></td>
 
@@ -34,7 +34,7 @@
 </table>
 <div class="row" id="addAny">
 	
-	<a class="btn btn-outline-dark" href="../blog/newPost" role="button">Add Post</a>
+	<!-- <a class="btn btn-outline-dark" href="../blog/newPost" role="button">Add Post</a> -->
 </div>
 </div>
 {% endblock content %}

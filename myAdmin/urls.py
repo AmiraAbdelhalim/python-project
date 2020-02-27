@@ -24,5 +24,7 @@ urlpatterns =[
 	# path('goAdd',views.goAdd),
 	path('viewCat/<id>',views.viewCat),
 	path('deleteCat/<id>',views.deleteCat),
-	path('editCat/<id>',views.editCat),
+	# path('editCat/<id>',views.editCat),
+# 	path('deletePost/<id>',views.deletePost),
+# 	path('editPost/<id>',views.editPost),
 ]

@@ -107,14 +107,32 @@ def deleteCat(request, id):
 	cat.delete()
 	return HttpResponseRedirect("/admin/viewCategories")
 
-def editCat(request,id):
-	cat = Category.objects.get(id=id)
-	if request.method == 'POST':
-		form = CategoryForm(request.POST,instance=cat)
-		if form.is_valid():
-			form.save()
-			return  HttpResponseRedirect("/admin/viewCategories")
-	else:
-		form = CategoryForm(instance=cat)
-		context = {'form':form}
-		return render(request,"catAdd.html",context)
+# def editCat(request,id):
+# 	cat = Category.objects.get(id=id)
+# 	if request.method == 'POST':
+# 		form = CategoryForm(request.POST,instance=cat)
+# 		if form.is_valid():
+# 			form.save()
+# 			return  HttpResponseRedirect("/admin/viewCategories")
+# 	else:
+# 		form = CategoryForm(instance=cat)
+# 		context = {'form':form}
+# 		return render(request,"catAdd.html",context)
+
+
+# def deletePost(request, id):
+# 	post=Post.objects.get(id=id)
+# 	post.delete()
+# 	return HttpResponseRedirect("/admin/posts")
+
+# def editPost(request,id):
+# 	post = Post.objects.get(id=id)
+# 	if request.method == 'POST':
+# 		form = PostForm(request.POST,instance=post)
+# 		if form.is_valid():
+# 			form.save()
+# 			return  HttpResponseRedirect("/admin/posts")
+# 	else:
+# 		form = PostForm(instance=post)
+# 		context = {'form':form}
+# 		return render(request,"/blog/newPost.html",context)
