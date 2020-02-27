@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User as Users
-from blog.models import Post
-from myAdmin.forms import UserForm
+from blog.models import Post, Category
+from myAdmin.forms import UserForm, CategoryForm
+from blog.forms import PostForm
+# from blog.template import newPost
 # Create your views here.
 
 
@@ -11,8 +13,8 @@ def index(request):
 
 
 def posts(request):
-	myPosts=Post.objects.all()
-	context={'all_posts' : myPosts}
+	all_posts=Post.objects.all()
+	context={'all_posts' : all_posts}
 	return render(request,'posts.html',context)
 
 
@@ -73,3 +75,54 @@ def adminInfo(request, id):
 	admin=Users.objects.get(id=id)
 	context={'admin':admin}
 	return render (request, 'admin_info.html', context)
+
+def viewCategories(request):
+	cat=Category.objects.all()
+	context={'all_cat': cat}
+	return render (request, 'categories.html',context)
+
+def addCat(request):
+	form = CategoryForm()
+	if request.method == 'POST':
+		form = CategoryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/admin/viewCategories")
+	else:
+		form=CategoryForm()
+		context={'form': form}
+		return render(request,"catAdd.html",context)
+
+
+def viewCat(request, id):
+	cat=Category.objects.get(id=id)
+	myPosts=Post.objects.all()
+
+	context={'cat':cat,
+			 'myPosts':myPosts
+	}
+	return render (request, 'cat_details.html', context)
+
+def deleteCat(request, id):
+	cat=Category.objects.get(id=id)
+	cat.delete()
+	return HttpResponseRedirect("/admin/viewCategories")
+
+def editCat(request,id):
+	cat = Category.objects.get(id=id)
+	if request.method == 'POST':
+		form = CategoryForm(request.POST,instance=cat)
+		if form.is_valid():
+			form.save()
+			return  HttpResponseRedirect("/admin/viewCategories")
+	else:
+		form = CategoryForm(instance=cat)
+		context = {'form':form}
+		return render(request,"catAdd.html",context)
+
+
+def deletePost(request, slug):
+	post=Post.objects.get(slug)
+	post.delete()
+	return HttpResponseRedirect("/admin/posts")
+

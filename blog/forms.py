@@ -3,7 +3,7 @@ from blog.models import Users
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import Comment , Reply
+from .models import Comment , Reply ,Post
 
 
 class UserForm(UserCreationForm):
@@ -29,9 +29,15 @@ class UserForm(UserCreationForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ('body',)
 
 class ReplyForm(forms.ModelForm):
     class Meta:
         model = Reply
-        fields = ('name', 'body')
+        fields = ('body',)
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'slug','content', 'status','cat','image','id',)

@@ -1,0 +1,33 @@
+{% extends "adminbase.html" %} 
+{%load static%}
+{% block content %}
+<div class="row">
+    <h1 class="font-weight-bold">{{cat.name}}</h1>
+</div>
+<div class="row">
+    <table border=1 class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Post Title</th>
+          <th scope="col">Author</th>
+          <th colspan="2">Operations</th>
+          
+        </tr>
+      </thead>
+      {%for post in myPosts %}
+      {%if post.cat_id == cat.id%}
+      <tr>
+		<td>{{post.title}}</td>
+		<td>{{post.author_id}}</td>
+		<td><a href='/blog/{{post.slug}}'>View</a></td>
+		<td><a href='#'>Delete</a></td>
+
+	</tr>
+    {%endif%}
+    {%endfor%}
+</table>
+</div>
+<!-- <div class="row pt-5" id="addAny">
+    <a class="btn btn-outline-primary " href="/admin/users" role="button">Back</a>
+</div> -->
+{% endblock %}
