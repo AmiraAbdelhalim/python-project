@@ -133,7 +133,7 @@ def newPost(request):
             new_form = form.save(commit=False)
             print(request)
             new_form.author = request.user
-            new_form.id = request.user.id
+            # new_form.id = request.user.id
             new_form.slug=slugify(new_form.title)
             new_form.save()
             
