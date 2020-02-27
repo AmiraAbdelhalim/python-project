@@ -38,33 +38,62 @@
             padding-top: 10px;
         }
     </style> -->
+    {% block nav %}
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" id="title" href="#">AKFA</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto" id="home">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="newPost">Create Post
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                  {% if user.is_authenticated == False%}
+                    <a class="nav-link" href="signup">Sign Up</a>
+                  {%endif%}
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+              </li> -->
+              <li class="nav-item">
+                  {% if user.is_authenticated == False%}
+                    <a class="nav-link" href="login">Login</a>
+                  {%endif%}
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a  class="nav-link" href="#">{{user.username }}</a>
+                {%endif%}
+              </li> 
+              <li class="nav-item">
+                  {% if user.is_staff%}
+                  <a class="nav-link" href="/admin/">Admin Panal</a>
+                  {% endif %}
+                </li>
+                
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <a class="nav-link" href="logout">Log Out</a>
+                  {%endif%}
+                </li>  
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {% endblock nav %}
+    
 
-
-
-        <!-- Navigation -->
-        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home' %}">AKFA</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">amira</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="newPost.html">content</a>
-                        </li>
-                        <li class="nav-item text-black">
-                            <a class="nav-link text-black font-weight-bold" href="#">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
         <!-- amira uses the content block -->
         {% block content %}
         <!-- Content Goes here -->

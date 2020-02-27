@@ -1,11 +1,42 @@
 #categories{
     display: block;
 }
+/* #categories li {
+    color: white;
+    background-color: rgb(40, 96, 144);
+    border-radius: 3px;
+
+
+} */
+
+.back{
+    border-radius: 2px;
+    border-color: red;
+    color: red;
+    background-color: transparent;
+
+}
+#navbarResponsive{
+
+    font-size: 20px;
+}
+#title{
+    font-size: 30px;
+}
 
 body{
     padding: 0px;
 }
 #home{
     float: right;
+}
+
+#pagination{
+    display: flex;
+    justify-content: center;
+}
+
+#pagination li {
+    display: list-item;
 }
 

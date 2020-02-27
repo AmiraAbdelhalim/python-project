@@ -28,7 +28,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">AKFA</a>
+      <a class="navbar-brand" id="tittle" href="#">AKFA</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,6 +36,11 @@
         <ul class="navbar-nav ml-auto" id="home">
           <li class="nav-item active">
             <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="newPost">Create Post
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -99,14 +104,14 @@
               <h4>Categories</h4>
               <ul class="nav nav-pills nav-stacked " id="categories">
                 {% for cat in cats %}
-                <li><a href="/blog/cat_post/{{cat.id}}">{{cat.name}}</a></li>
+                <li><a href="/blog/cat_post/{{cat.id}}">{{cat.name}}</a>
             
                 {% if cat.id in checks %}
                     <a href= "{% url 'unsubscribe' category_id=cat.id %}">subcribed</a>
                 {% else %}
                     <a href= "{% url 'subscribe' category_id=cat.id %}">subcribe</a>
                 {% endif %}
-
+              </li>
                 <hr>
                  {% endfor %}
                 
@@ -119,12 +124,12 @@
               </div>
     
             <!-- Side Widget -->
-            <div class="card my-4">
+            <!-- <div class="card my-4">
               <h5 class="card-header">Side Widget</h5>
               <div class="card-body">
                 You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
               </div>
-            </div>
+            </div> -->
     
           </div>
     
@@ -152,12 +157,9 @@
         </div>
         
     </div>
-</div>
-
-
-{% if post_list.has_other_pages %}
+    {% if post_list.has_other_pages %}
   <nav aria-label="Page navigation conatiner"></nav>
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center" id="pagination">
     {% if post_list.has_previous %}
     <li><a href="?page={{ post_list.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
     {% endif %}
@@ -168,3 +170,7 @@
   </nav>
 </div>
 {% endif %}
+</div>
+
+
+

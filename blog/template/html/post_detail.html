@@ -1,7 +1,24 @@
 {% extends 'base.html' %} {% block content %}
 {% load profanity %}
 
+<style>
+.back{
+    border-radius: 2px;
+    border-color:blue;
+    color:blue;
+    background-color: transparent;
 
+}
+
+.back:hover{
+  background-color: cadetblue;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+
+  
+}
+</style>
 <div class="container">
   <div class="row">
     <div class="col-md-8 card mb-4  mt-3 left  top">
@@ -15,8 +32,10 @@
         {% endif %}
         <p class="card-text ">{{ post.content | safe }}</p>
         <h4>{{ liked.count }} Likes </h4>
-        <button><a href="{{post.id}}/l/">like</a></button>
-        <button><a href="{{post.id}}/d/">dislike</a></button>
+        <button class="btn btn-primary back" id="back"><a href="{{post.id}}/l/">like</a></button>
+        <button class="btn btn-primary back" id="back"><a href="{{post.id}}/d/">dislike</a></button>
+        <button class="btn btn-primary back" id="back"><a href="/blog/">back</a></button>
+
       </div>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
