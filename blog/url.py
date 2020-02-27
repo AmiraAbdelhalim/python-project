@@ -21,7 +21,8 @@ urlpatterns =[
 	path('home', views.home),
     path('<slug:slug>/', views.post_detail, name='post_detail'),
 	path('<slug>/<commentId>/',views.comment_reply,name="comment_reply"),
-	
+	path('editPost/<slug:slug>',views.editPost),
+
 	
 	# path('login/', views.SignUp.signup),
 	

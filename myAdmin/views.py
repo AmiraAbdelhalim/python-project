@@ -4,6 +4,7 @@ from django.contrib.auth.models import User as Users
 from blog.models import Post, Category
 from myAdmin.forms import UserForm, CategoryForm
 from blog.forms import PostForm
+# from blog.template import newPost
 # Create your views here.
 
 
@@ -12,8 +13,8 @@ def index(request):
 
 
 def posts(request):
-	myPosts=Post.objects.all()
-	context={'all_posts' : myPosts}
+	all_posts=Post.objects.all()
+	context={'all_posts' : all_posts}
 	return render(request,'posts.html',context)
 
 
@@ -107,32 +108,21 @@ def deleteCat(request, id):
 	cat.delete()
 	return HttpResponseRedirect("/admin/viewCategories")
 
-# def editCat(request,id):
-# 	cat = Category.objects.get(id=id)
-# 	if request.method == 'POST':
-# 		form = CategoryForm(request.POST,instance=cat)
-# 		if form.is_valid():
-# 			form.save()
-# 			return  HttpResponseRedirect("/admin/viewCategories")
-# 	else:
-# 		form = CategoryForm(instance=cat)
-# 		context = {'form':form}
-# 		return render(request,"catAdd.html",context)
+def editCat(request,id):
+	cat = Category.objects.get(id=id)
+	if request.method == 'POST':
+		form = CategoryForm(request.POST,instance=cat)
+		if form.is_valid():
+			form.save()
+			return  HttpResponseRedirect("/admin/viewCategories")
+	else:
+		form = CategoryForm(instance=cat)
+		context = {'form':form}
+		return render(request,"catAdd.html",context)
 
 
-# def deletePost(request, id):
-# 	post=Post.objects.get(id=id)
-# 	post.delete()
-# 	return HttpResponseRedirect("/admin/posts")
+def deletePost(request, slug):
+	post=Post.objects.get(slug)
+	post.delete()
+	return HttpResponseRedirect("/admin/posts")
 
-# def editPost(request,id):
-# 	post = Post.objects.get(id=id)
-# 	if request.method == 'POST':
-# 		form = PostForm(request.POST,instance=post)
-# 		if form.is_valid():
-# 			form.save()
-# 			return  HttpResponseRedirect("/admin/posts")
-# 	else:
-# 		form = PostForm(instance=post)
-# 		context = {'form':form}
-# 		return render(request,"/blog/newPost.html",context)
