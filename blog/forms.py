@@ -7,7 +7,7 @@ from .models import Comment , Reply ,Post
 
 
 class UserForm(UserCreationForm):
-
+    
     class Meta:
         fields=('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
         model = get_user_model()
@@ -40,4 +40,4 @@ class ReplyForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'slug','content', 'status','cat','image',)
+        fields = ('title', 'slug','content', 'status','cat','image','id',)

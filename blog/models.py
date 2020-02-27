@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib import auth
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 # Create your models here.
 class Users(auth.models.User):
@@ -21,7 +21,7 @@ class Category (models.Model):
     name = models.CharField(max_length=80 )
 
     def __str__(self):
-            return self.name
+        return self.name
 
 
 
@@ -39,7 +39,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now= True)
     content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(default=timezone.now)
     status = models.IntegerField(choices=STATUS, default=0)
     # image= models.ImageField(upload_to='images', null=True)
     image= models.ImageField(verbose_name="image",upload_to='images/', null=True, )

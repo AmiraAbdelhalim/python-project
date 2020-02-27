@@ -14,11 +14,9 @@ from .models import Post , Comment ,Subscribe,Category,Likes
 from .forms import CommentForm , ReplyForm , PostForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.text import slugify
-from .models import Post
-from .forms import CommentForm
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import Post 
-from .forms import CommentForm , ReplyForm
+from .forms import CommentForm , ReplyForm , PostForm
 
 
 
@@ -154,10 +152,12 @@ def newPost(request):
         if(form.is_valid()):
             print("vaild")
             new_form = form.save(commit=False)
+            print(request)
             new_form.author = request.user
+            # new_form.id = request.user.id
             new_form.slug=slugify(new_form.title)
             new_form.save()
-            # form.save()
+            
             return HttpResponseRedirect('/blog')
     else:
         form = PostForm()
@@ -278,3 +278,20 @@ def search(request):
 #     all_posts = Post.objects.all()
 #     context = {'post' : all_posts}
 #     return render(request ,'index.html' , context)
+# def PostList(request):
+#     all_posts = Post.objects.all()
+#     context = {'post' : all_posts}
+#     return render(request ,'home.html' , context)
+
+
+def editPost(request,slug):
+	post = Post.objects.get(slug=slug)
+	if request.method == 'POST':
+		form = PostForm(request.POST,instance=post)
+		if form.is_valid():
+			form.save()
+			return  HttpResponseRedirect("../../admin/posts")
+	else:
+		form = PostForm(instance=post)
+		context = {'form':form}
+		return render(request,"newPost.html",context)

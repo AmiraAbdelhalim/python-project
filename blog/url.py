@@ -27,6 +27,8 @@ urlpatterns =[
 	path('<slug>/<postID>/d/',views.disliked,name='disliked'),
 	# url(r'^blog/first-blog/(?P<postID>[\w])/$', views.liked),
     # url(r'^(?P<postID>[\w])/(?P<postTitle>[\w]+)/d/$', views.disliked),
+	path('editPost/<slug:slug>',views.editPost),
+
 	
 	# path('login/', views.SignUp.signup),
 	
