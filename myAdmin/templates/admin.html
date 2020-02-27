@@ -1,7 +1,9 @@
 {% extends "adminbase.html" %} 
+{% load static%}
 {% block content %}
-<h1>
-  test test
-</h1>
+
+<div class="image">
+  <img src="{% static 'dist/img/us.jpg'%}" height="600" width="900" >
+</div>
 
 {% endblock content %}
