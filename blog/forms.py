@@ -7,7 +7,7 @@ from .models import Comment , Reply
 
 
 class UserForm(UserCreationForm):
-
+    
     class Meta:
         fields=('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
         model = get_user_model()
