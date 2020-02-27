@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Blog Home - Start Bootstrap Template</title>
+  <title>AKFA</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -97,11 +97,29 @@
          
               <h4>Categories</h4>
               <ul class="nav nav-pills nav-stacked " id="categories">
-                <li class="active"><a href="#section1">Sport</a></li>
-                <li><a href="#section2">Politics</a></li>
-                <li><a href="#section3">Art</a></li>
-                <li><a href="#section3">Photography</a></li>
-              </ul><br>
+                {% for cat in cats %}
+                
+
+                <li class="active">
+                  <a href="">{{cat.name}} 
+
+                    {% if cat.id in checks %}
+
+                    
+                    <button class="subscribe" href= "{% url 'unsubscribe' category_id=cat.id %}">Subscribe</button>
+                    {% else %}
+                    <button class="subscribe"href= "{% url 'subscribe' category_id=cat.id %}">Unsubscribe</button>
+                    {% endif %}
+
+                  </a>
+
+
+                  </li>
+                {% endfor%}
+
+              </ul>
+              
+              <br>
       
               </div>
     
@@ -130,7 +148,7 @@
           <div class="card-body">
             <h2 class="card-title">Post Title : {{st.title}}</h2>
             <p class="card-text"> {{st.content}} </p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            <a href="" class="btn btn-primary">Read More &rarr;</a>
           </div>
           <div class="card-footer text-muted">
             Created On : {{st.created_on}} by : {{st.author}}
@@ -187,6 +205,32 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="{% static 'css/home.js' %}"></script> -->
+
+
+
+  <!-- <script>
+          var toggled = true;
+      var btn =document.getElementsByClassName("subscribe");
+
+      function toggle(num)
+      {
+          if(toggled){
+              btn[num].innerHTML= "Unsubscribe"
+              btn[num].classList.add("subscribed")
+              toggled=false;
+              console.log(btn);
+              console.log(toggled);
+          }
+          else if(!toggled) {
+            btn[num].innerHTML= "Subscribe"
+            btn[num].classList.remove("subscribed")
+              toggled=true;
+          }
+              
+          
+      }
+  </script> -->
 
 </body>
 

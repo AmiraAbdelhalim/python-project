@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-
+{% load profanity %}
 
 
 <div class="container">
@@ -14,6 +14,9 @@
         <img src="{{post.image.url}}" height="250" width="350">
         {% endif %}
         <p class="card-text ">{{ post.content | safe }}</p>
+        <h4>{{ liked.count }} Likes </h4>
+        <button><a href="{{post.id}}/l/">like</a></button>
+        <button><a href="{{post.id}}/d/">dislike</a></button>
       </div>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
@@ -21,19 +24,20 @@
     <div class="col-md-8 card mb-4  mt-3 ">
       <div class="card-body">
         <!-- comments -->
+        
         <h2>{{ comments.count }} comments </h2>
         
         {% for comment in comments %}
         <div class="comments" style="padding: 10px;">
           <p class="font-weight-bold">
               {% if user.is_authenticated %}
-            {{ user }}
+            {{ comment.author }}
             {% endif %}
             <span class=" text-muted font-weight-normal">
               {{ comment.created_on }}
             </span>
           </p>
-          {{ comment.body | linebreaks }}
+          {{ comment.body | linebreaks | censor }}
           {% if user.is_authenticated %}
           <button type="submit" class="btn btn-primary  btn" id="reply{{comment.id}}">Reply</button>
           {% endif %}
@@ -50,12 +54,12 @@
         {% if reply.comment_id == comment.id %}
         <div class="reply ml-5" style="padding: 10px;">
           <p class="font-weight-bold">
-            {{ user}}
+            {{ reply.author }}
             <span class=" text-muted font-weight-normal">
               {{ reply.created_on }}
             </span>
           </p>
-          {{ reply.body | linebreaks }}
+          {{ reply.body | linebreaks | censor }}
         </div>
         
         {% endif %}
@@ -79,6 +83,7 @@
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
         </form>
         {% endif %}
+        <!-- <button type="submit" class="btn btn-primary  btn-lg">Submit</button> -->
       </div>
     </div>
     
