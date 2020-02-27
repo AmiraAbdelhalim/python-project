@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User as Users
 from blog.models import Post, Category
-from myAdmin.forms import UserForm
+from myAdmin.forms import UserForm, CategoryForm
+from blog.forms import PostForm
 # Create your views here.
 
 
@@ -80,19 +81,17 @@ def viewCategories(request):
 	return render (request, 'categories.html',context)
 
 def addCat(request):
+	form = CategoryForm()
 	if request.method == 'POST':
-		cateInstance = Category()
-		cateInstance.name = request.POST['myCategory']
-		cateInstance.save()
-		return  HttpResponseRedirect("/admin/viewCategories")
+		form = CategoryForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/admin/viewCategories")
 	else:
-		print("fail")
+		form=CategoryForm()
+		context={'form': form}
+		return render(request,"catAdd.html",context)
 
-
-def goAdd(request):
-	cat=Category.objects.all()
-	context={'all_cat': cat}
-	return render (request, 'catAdd.html',context)
 
 def viewCat(request, id):
 	cat=Category.objects.get(id=id)
@@ -111,9 +110,11 @@ def deleteCat(request, id):
 def editCat(request,id):
 	cat = Category.objects.get(id=id)
 	if request.method == 'POST':
-		cateInstance = Category()
-		cateInstance.name = request.POST['myCategory']
-		cateInstance.save()
-		return  HttpResponseRedirect("/admin/viewCategories")
+		form = CategoryForm(request.POST,instance=cat)
+		if form.is_valid():
+			form.save()
+			return  HttpResponseRedirect("/admin/viewCategories")
 	else:
-		print("fail")
+		form = CategoryForm(instance=cat)
+		context = {'form':form}
+		return render(request,"catAdd.html",context)

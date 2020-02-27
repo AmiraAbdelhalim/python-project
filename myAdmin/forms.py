@@ -1,7 +1,8 @@
-from blog.models import Users
+from blog.models import Users, Category
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+
 
 class UserForm(UserCreationForm):
 
@@ -23,3 +24,8 @@ class UserForm(UserCreationForm):
         self.fields['password2']
         self.fields['is_staff'].label='Admin'
         self.fields['is_active'].label='Status'
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name',)
