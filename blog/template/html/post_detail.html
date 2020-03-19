@@ -67,7 +67,9 @@
           <form method="post" action="{% url 'comment_reply' post.slug comment.id %}" style="display:none" id="form-reply{{comment.id}}">
             {{ reply_form.as_p }}
             {% csrf_token %}
+            {%if user.is_authenticated%}
             <button type="submit" class="btn btn-primary  btn-lg" name="replySubmit">Submit</button> 
+            {%endif%}
           </form>
 
         </div>
@@ -103,12 +105,15 @@
         {{ comment_form.as_p }}
         {% csrf_token %}
         {% else %}
+        {%if user.is_authenticated%}
         <h3>Leave a comment</h3>
         <form method="post" style="margin-top: 1.3em;">
           {{ comment_form.as_p }}
           {% csrf_token %}
+          
           <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
         </form>
+        {%endif%}
         {% endif %}
         <!-- <button type="submit" class="btn btn-primary  btn-lg">Submit</button> -->
       </div>

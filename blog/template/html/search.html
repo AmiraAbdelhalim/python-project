@@ -1,0 +1,25 @@
+<div class="row">
+        <!-- <h1 class="font-weight-bold">{{cat.name}}</h1> -->
+    </div>
+    <div class="row">
+        <table border=1 class="table table-hover">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Post Title</th>
+              <th scope="col">Author</th>
+              <th colspan="2">Operations</th>
+              
+            </tr>
+          </thead>
+          {%for post in all_posts %}
+          
+          <tr>
+            <td>{{post.title}}</td>
+            <td>{{post.author_id}}</td>
+           
+    
+        </tr>
+       
+        {%endfor%}
+    </table>
+    </div>

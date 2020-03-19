@@ -17,6 +17,7 @@ from django.utils.text import slugify
 #from django.contrib.auth.forms import AuthenticationForm
 from .models import Post 
 from .forms import CommentForm , ReplyForm , PostForm
+from django.db.models import Q
 
 
 
@@ -45,24 +46,46 @@ def PostList(request):
     object_list = Post.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
     cats = Category.objects.all()
-    subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
-    paginator = Paginator(object_list, 3)  # 3 posts in each page
-    page = request.GET.get('page')
-    check = checks(cats,subs)
-    try:
-        post_list = paginator.page(page)
-    except PageNotAnInteger:
+    if request.user.is_authenticated == True :
+        subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
+        check = checks(cats,subs)
+        paginator = Paginator(object_list, 3)  # 3 posts in each page
+        page = request.GET.get('page')
+        try:
+            post_list = paginator.page(page)
+        except PageNotAnInteger:
             # If page is not an integer deliver the first page
-        post_list = paginator.page(1)
-    except EmptyPage:
+            post_list = paginator.page(1)
+        except EmptyPage:
         # If page is out of range deliver last page of results
-        post_list = paginator.page(paginator.num_pages)
-    return render(request,
+            post_list = paginator.page(paginator.num_pages)
+        return render(request,
                   'index.html',
                   {'page': page,
                    'post_list': post_list,
                    'cats': cats,
                    'checks': check})
+    else:
+        # subs = Subscribe.objects.filter(subscriber_id=request.user).values_list('category_id', flat=True)
+        # check = checks(cats,subs)
+        paginator = Paginator(object_list, 3)  # 3 posts in each page
+        page = request.GET.get('page')
+        try:
+            post_list = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+            post_list = paginator.page(1)
+        except EmptyPage:
+        # If page is out of range deliver last page of results
+            post_list = paginator.page(paginator.num_pages)
+        return render(request,
+                  'index.html',
+                  {'page': page,
+                   'post_list': post_list,
+                   'cats': cats,
+                   })
+    
+    
 
 
 
@@ -263,18 +286,14 @@ def disliked(request,postID,slug):
     return HttpResponseRedirect(url)
 
 def search(request):
-    if request.method=='POST':
-        srch = request.POST['srch']
-        if srch:
-            match = Post.objects.filter(Q(slug__icontains=srch))
-            if match:
-                return render(request , "search.html" ,{'sr' : match})
-            else:
-                messages.error(request , "no result found")
-
-        else:
-            return HttpResponseRedirect('/search/')
-    return render(request , 'search.html')
+    term = request.GET.get('srch')
+    all_posts =  Post.objects.filter(
+        Q(slug__icontains=term)
+        )
+    context={'all_posts':all_posts}
+    return render(request,'search.html',context)
+    # post_detail(slug)
+        
 
 
 # def PostList(request):
